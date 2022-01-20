@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2022-01-19 16:51:31
- * @LastEditTime: 2022-01-19 22:20:32
+ * @LastEditTime: 2022-01-20 10:45:22
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \MiMi\src\App.vue
@@ -13,7 +13,6 @@
 </template>
 
 <script>
-import jsonp from 'jsonp'
 export default {
   name: 'App',
   components: {
