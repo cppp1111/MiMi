@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2022-01-19 22:25:28
- * @LastEditTime: 2022-01-20 14:59:14
+ * @LastEditTime: 2022-01-20 16:48:14
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \MiMi\src\storage\index.js
@@ -47,6 +47,7 @@ export default {
     clear(key, module_name) {
         let val = this.getStorage();
         if (module_name) {
+            if (!val[module_name]) return;
             delete val[module_name][key];
         } else {
             delete val[key];
