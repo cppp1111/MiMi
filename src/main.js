@@ -11,6 +11,7 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import router from './router'
 import App from './App.vue'
+
 // import env from './env'
 // mock开关
 // 因为如果那个api文件如果加载进来就会被拦截，这里设置mock开关，就只有设置为true时才会被拦截
