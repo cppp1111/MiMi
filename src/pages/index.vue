@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2022-01-20 09:12:41
- * @LastEditTime: 2022-01-23 16:09:46
+ * @LastEditTime: 2022-01-24 15:15:06
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \MiMi\src\pages\index.vue
@@ -101,10 +101,22 @@
             </div>
         </div>
         <service-bar></service-bar>
+        <modal 
+        title="提示" 
+        sureText="查看购物车" 
+        btnType="1" 
+        modalType="middle" 
+        :showModal="true">
+            <!-- 新型定义插槽!! -->
+            <template v-slot:body>
+                <p>商品添加成功</p>
+            </template>
+        </modal>
     </div>
 </template>
 <script>
     import ServiceBar from './../components/ServiceBar.vue'
+    import Modal from './../components/Modal.vue'
     import {swiper,swiperSlide} from 'vue-awesome-swiper'
     import 'swiper/dist/css/swiper.css'
     import Swiper from 'vue-awesome-swiper/src/swiper.vue'
@@ -114,7 +126,8 @@
             swiper,
             swiperSlide,
             ServiceBar,
-                Swiper
+            Swiper,
+            Modal
         },
         data(){
             return{
@@ -206,10 +219,11 @@
                 this.axios.get('/products',{
                     params:{
                         categoryId:100012,
-                        pagaSize:8
+                        pageSize:14
                     }
                 }).then((res)=>{
-                    this.phoneList = [res.list.slice(0,4),res.list.slice(4,8)]
+                    res.list=res.list.slice(6,14);
+                    this.phoneList = [res.list.slice(0,4),res.list.slice(4,8)];
                 })
             }
         }
