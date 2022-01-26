@@ -1,30 +1,46 @@
 <!--
  * @Author: your name
  * @Date: 2022-01-23 16:24:14
- * @LastEditTime: 2022-01-25 00:23:41
+ * @LastEditTime: 2022-01-26 17:17:57
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \MiMi\src\components\Modal.vue
 -->
 <template>
-    <div class="modal" v-show="showModal">
-        <div class="mask"></div>
-        <div class="modal-dialog">
-            <div class="modal-header">
-                <span>标题</span>
-                <a href="javascript:;" class="icon-close"></a>
-            </div>
-            <div class="modal-body">
-                <slot name="body"></slot>
-            </div>
-            <div class="modal-footer">
-                <div class="btn-group">
-                    <a href="javascript:;" class="btn">确定</a>
-                    <a href="javascript:;" class="btn btn-default">取消</a>
+    <transition name="slide">
+        <div class="modal" v-show="showModal">
+            <div class="mask"></div>
+            <div class="modal-dialog">
+                <div class="modal-header">
+                    <span>{{title}}</span>
+                    <a href="javascript:;" class="icon-close" @click="$emit('cancel')"></a>
+                </div>
+                <div class="modal-body">
+                    <slot name="body"></slot>
+                </div>
+                <div class="modal-footer">
+                    <a href="javascript:;" 
+                    class="btn" 
+                    v-if="btnType==1" 
+                    @click="$emit('submit')">
+                    <!-- 这里的emit是子组件向父组件传递 -->
+                    {{sureText}}
+                    </a>
+                    <a href="javascript:;" 
+                    class="btn" 
+                    v-if="btnType==2" 
+                    @click="$emit('cancel')">
+                    <!-- 这里的emit是子组件向父组件传递 -->
+                    {{cancleText}}
+                    </a>
+                    <div class="btn-group" v-if="btnType==3">
+                        <a href="javascript:;" class="btn" @click="$emit('submit')">{{sureText}}</a>
+                        <a href="javascript:;" class="btn" @click="$emit('cancel')">{{cancleText}}</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </transition>
 </template>
 <script>
 export default {

@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2022-01-20 09:12:41
- * @LastEditTime: 2022-01-24 15:15:06
+ * @LastEditTime: 2022-01-26 16:55:03
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \MiMi\src\pages\index.vue
@@ -92,7 +92,7 @@
                             <div class="item-info">
                                 <h3>{{item.name}}</h3>
                                 <p>{{item.subtitle}}</p>
-                                <p class="price">{{item.price}}元</p>
+                                <p class="price" @click="addCart(item.id)">{{item.price}}元</p>
                             </div>
                         </div>
                     </div>
@@ -106,7 +106,9 @@
         sureText="查看购物车" 
         btnType="1" 
         modalType="middle" 
-        :showModal="true">
+        :showModal="showModal"
+        @submit="gotoCart"
+        @cancel="showModal=false">
             <!-- 新型定义插槽!! -->
             <template v-slot:body>
                 <p>商品添加成功</p>
@@ -208,7 +210,8 @@
                         img:'/imgs/ads/ads-4.jpg'
                     }
                 ],
-                phoneList:[]
+                phoneList:[],
+                showModal:false
             }
         },
         mounted(){
@@ -225,6 +228,21 @@
                     res.list=res.list.slice(6,14);
                     this.phoneList = [res.list.slice(0,4),res.list.slice(4,8)];
                 })
+            },
+            addCart(){
+                this.showModal=true;
+                return;
+                // this.axios.post('/carts',{
+                //     productId:id,
+                //     selected:true
+                // }).then(()=>{
+
+                // }).catch(()=>{
+                //     this.showModal=true;
+                // })
+            },
+            gotoCart(){
+                this.$router.push('/cart');
             }
         }
     }
