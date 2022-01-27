@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2022-01-19 16:51:31
- * @LastEditTime: 2022-01-26 19:02:17
+ * @LastEditTime: 2022-01-27 15:46:55
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \MiMi\src\main.js
@@ -11,12 +11,13 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import router from './router'
 import VueLazyload from 'vue-lazyload'
+import VueCookie from 'vue-cookie'
 import App from './App.vue'
 
 // import env from './env'
 // mock开关
 // 因为如果那个api文件如果加载进来就会被拦截，这里设置mock开关，就只有设置为true时才会被拦截
-const mock = true;
+const mock = false;
 if (mock) {
     require('./mock/api');
 }
@@ -38,10 +39,12 @@ axios.interceptors.response.use(function(response) {
         window.location.href = '/#/login';
     } else {
         alert(res.msg);
+        return Promise.reject(res);
     }
 });
 
 Vue.use(VueAxios, axios);
+Vue.use(VueCookie);
 Vue.use(VueLazyload, {
     loading: '/imgs/loading-svg/loading-bars.svg'
 });

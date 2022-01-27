@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2022-01-20 09:16:38
- * @LastEditTime: 2022-01-26 19:07:19
+ * @LastEditTime: 2022-01-27 15:58:14
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \MiMi\src\components\NavHeader.vue
@@ -127,7 +127,7 @@ export default {
     name:'nav-header',
     data(){
         return{
-            username:'jack',
+            username:'',
             phoneList:[]
         }
     },
@@ -188,6 +188,7 @@ export default {
                 background-color: #FF6600;
                 text-align: center;
                 color: #ffffff;
+                margin-right: 0;
                 .icon-cart{
                     @include bgImg(16px,12px,'/imgs/icon-cart-checked.png');
                     margin-right: 4px;

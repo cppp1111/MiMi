@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2022-01-19 22:27:17
- * @LastEditTime: 2022-01-22 11:57:02
+ * @LastEditTime: 2022-01-26 20:34:29
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \MiMi\src\router.js
@@ -9,6 +9,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './pages/home'
+import Login from './pages/login'
 import Index from './pages/index'
 import Product from './pages/product'
 import Detail from './pages/detail'
@@ -40,6 +41,10 @@ export default new Router({
             name: 'detail',
             component: Detail,
         }]
+    }, {
+        path: '/login',
+        name: 'login',
+        component: Login
     }, {
         path: '/cart',
         name: 'cart',
