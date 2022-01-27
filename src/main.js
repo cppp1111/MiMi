@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2022-01-19 16:51:31
- * @LastEditTime: 2022-01-27 15:46:55
+ * @LastEditTime: 2022-01-27 16:57:45
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \MiMi\src\main.js
@@ -32,11 +32,14 @@ axios.defaults.timeout = 8000;
 axios.interceptors.response.use(function(response) {
     // 这里的data 是axios的
     let res = response.data;
+    let path = location.hash;
     // 状态码是0代表成功
     if (res.status == 0) {
         return res.data;
     } else if (res.status == 10) { //状态码10 是未登录
-        window.location.href = '/#/login';
+        if (path != '#/index') {
+            window.location.href = '/#/login';
+        }
     } else {
         alert(res.msg);
         return Promise.reject(res);
