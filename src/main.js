@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2022-01-19 16:51:31
- * @LastEditTime: 2022-01-27 16:57:45
+ * @LastEditTime: 2022-01-29 13:09:40
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \MiMi\src\main.js
@@ -12,6 +12,7 @@ import VueAxios from 'vue-axios'
 import router from './router'
 import VueLazyload from 'vue-lazyload'
 import VueCookie from 'vue-cookie'
+import store from './store'
 import App from './App.vue'
 
 // import env from './env'
@@ -54,6 +55,7 @@ Vue.use(VueLazyload, {
 Vue.config.productionTip = false
 
 new Vue({
+    store,
     router,
     render: h => h(App),
 }).$mount('#app')
