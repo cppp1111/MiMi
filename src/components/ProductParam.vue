@@ -1,13 +1,13 @@
 <!--
  * @Author: your name
  * @Date: 2022-01-29 17:23:28
- * @LastEditTime: 2022-01-29 23:41:59
+ * @LastEditTime: 2022-01-30 01:04:05
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \MiMi\src\components\ProductParam.vue
 -->
 <template>
-    <div class="nav-bar">
+    <div class="nav-bar" :class="{'is_fixed':isFixed}">
         <div class="container">
             <div class="pro-title">
                 小米8
@@ -23,7 +23,27 @@
 </template>
 <script>
 export default {
-    name:'nav-bar'
+    name:'nav-bar',
+    data(){
+        return{
+            isFixed:false
+        }
+    },
+    mounted(){
+        // 监听高度
+        window.addEventListener('scroll',this.initHeight)
+    },
+    methods:{
+        initHeight(){
+            // 页面Y轴的偏移量
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+            this.isFixed = scrollTop >152?true:false;
+        }
+    },
+    // 销毁监听滚动，以防在其他页面滚动的时候这个方法也被加载
+    destroyed(){
+        window.removeEventListener('scroll',this.initHeight);
+    }
 }
 </script>
 <style lang="scss">
@@ -32,7 +52,14 @@ export default {
     .nav-bar{
         height: 70px;
         line-height: 70px;
-        border: 1px solid $colorH;
+        border-top: 1px solid $colorH;
+        background-color: $colorG;
+        &.is_fixed{
+            position: fixed;
+            top: 0;
+            width: 100%;
+            box-shadow: 0 5px 5px $colorE;
+        }
         .container{
             @include flex();
             .pro-title{
