@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2022-01-20 09:16:38
- * @LastEditTime: 2022-01-27 15:58:14
+ * @LastEditTime: 2022-01-29 16:48:14
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \MiMi\src\components\NavHeader.vue
@@ -20,7 +20,7 @@
                     <a href="javascript:;" v-if="username">{{username}}</a>
                     <a href="javascript:;" v-if="!username" @click="login">登陆</a>
                     <a href="javascript:;" v-if="username">我的订单</a>
-                    <a href="javascript:;" class="my-cart" @click="gotoCart"><span class="icon-cart"></span>购物车</a>
+                    <a href="javascript:;" class="my-cart" @click="gotoCart"><span class="icon-cart"></span>购物车({{cartCount}})</a>
                 </div>
             </div>
         </div>
@@ -123,13 +123,24 @@
     </div>
 </template>
 <script>
+import {mapState} from 'vuex'
 export default {
     name:'nav-header',
     data(){
         return{
-            username:'',
+            // username:this.$store.state.username,
             phoneList:[]
         }
+    },
+    // 当变量发生变化时，重新进行计算
+    computed:{
+        // username(){
+        //     return this.$store.state.username;
+        // },
+        // cartCount(){
+        //     return this.$store.state.cartCount;   
+        // }
+        ...mapState(['username','cartCount'])
     },
     // 过滤器
     filters:{
