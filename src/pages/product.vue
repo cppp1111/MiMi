@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2022-01-20 09:20:47
- * @LastEditTime: 2022-01-30 16:42:44
+ * @LastEditTime: 2022-01-30 17:25:15
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \MiMi\src\pages\product.vue
@@ -47,11 +47,11 @@
             <div class="item-vedio">
                 <h2>60帧超慢动作摄影<br>慢慢回味每一瞬间的精彩</h2>
                 <p>后置960帧电影般超慢动作视频，将眨眼间的美妙展现的淋漓尽致 <br>更能AI 精准分析视频内容，15个场景智能匹配背景音效。</p>
-                <div class="video-bg"></div>
+                <div class="video-bg" @click="showSlide=true"></div>
                 <div class="video-box">
-                    <div class="overlay"></div>
-                    <div class="video">
-                        <span class="video-close"></span>
+                    <div class="overlay" v-if="showSlide"></div>
+                    <div class="video" v-bind:class="{'slide':showSlide}">
+                        <span class="icon-close" @click="showSlide=false"></span>
                         <video src="/imgs/product/video.mp4" muted autoplay controls="controls"></video>
                     </div>
                 </div>
@@ -201,13 +201,19 @@ export default {
                     }
                     .video{
                         position: fixed;
-                        top: 50%;
+                        top: -50%;
                         left: 50%;
                         transform: translate(-50%,-50%);
                         z-index: 10;
                         width: 1000px;
                         height: 536px;
-                        .video-close{
+                        opacity: 0;
+                        transition: all .6s;
+                        &.slide{
+                            top: 50%;
+                            opacity: 1;
+                        }
+                        .icon-close{
                             position: absolute;
                             top: 20px;
                             right: 20px;
