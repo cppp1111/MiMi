@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2022-01-29 17:23:28
- * @LastEditTime: 2022-01-30 01:04:05
+ * @LastEditTime: 2022-01-30 22:45:00
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \MiMi\src\components\ProductParam.vue
@@ -10,7 +10,7 @@
     <div class="nav-bar" :class="{'is_fixed':isFixed}">
         <div class="container">
             <div class="pro-title">
-                小米8
+                {{title}}
             </div>
             <div class="pro-param">
                 <a href="javascript:;">概述<span>|</span></a>
@@ -24,6 +24,9 @@
 <script>
 export default {
     name:'nav-bar',
+    props:{
+        title:String
+    },
     data(){
         return{
             isFixed:false

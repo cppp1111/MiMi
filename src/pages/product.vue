@@ -1,22 +1,22 @@
 <!--
  * @Author: your name
  * @Date: 2022-01-20 09:20:47
- * @LastEditTime: 2022-01-30 17:54:46
+ * @LastEditTime: 2022-01-30 23:02:51
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \MiMi\src\pages\product.vue
 -->
 <template>
     <div class="product">
-        <product-param>
+        <product-param v-bind:title="product.name">
             <template v-slot:buy>
-                <button class="btn">立即购买</button>
+                <button class="btn" @click="buy">立即购买</button>
             </template>
         </product-param>
         <div class="content">
             <div class="item-bg">
-                <h2>小米8</h2>
-                <h3>8周年旗舰版</h3>
+                <h2>{{product.name}}</h2>
+                <h3>{{product.subtitle}}</h3>
                 <p>
                     <a href="">全球首款双频</a>
                     <span>|</span>
@@ -27,7 +27,7 @@
                     <a href="">红外人脸识别</a>
                 </p>
                 <div class="price">
-                    <span>￥<em>2599</em></span>
+                    <span>￥<em>{{product.price}}</em></span>
                 </div>
             </div>
             <div class="item-bg-2"></div>
@@ -48,10 +48,10 @@
                 <h2>60帧超慢动作摄影<br>慢慢回味每一瞬间的精彩</h2>
                 <p>后置960帧电影般超慢动作视频，将眨眼间的美妙展现的淋漓尽致 <br>更能AI 精准分析视频内容，15个场景智能匹配背景音效。</p>
                 <div class="video-bg" @click="showSlide='slideDown'"></div>
-                <div class="video-box">
-                    <div class="overlay" v-if="showSlide=='slideDown'"></div>
+                <div class="video-box" v-show="showSlide">
+                    <div class="overlay"></div>
                     <div class="video" v-bind:class="showSlide">
-                        <span class="icon-close" @click="showSlide='slideUp'"></span>
+                        <span class="icon-close" @click="closeVideo"></span>
                         <video src="/imgs/product/video.mp4" muted autoplay controls="controls"></video>
                     </div>
                 </div>
@@ -88,18 +88,22 @@ export default {
             }
         }
     },
+    // 调用下面的方法
     mounted(){
         this.getProductInfo();
     },
     methods:{
         getProductInfo(){
-            let id  = this.$router.params.id;
-            this.axios.get(`/product/${id}`).then((res)=>{
+            // 路由跳转方法
+            let id  = this.$route.params.id;
+            // 因为地址是动态的，用``包括起来
+            this.axios.get(`/products/${id}`).then((res)=>{
                 this.product=res;
             })
         },
         buy(){
-            let id = this.$router.params.id;
+            // 路由跳转
+            let id = this.$route.params.id;
             this.$router.push(`/detail/${id}`);
         },
         closeVideo(){
