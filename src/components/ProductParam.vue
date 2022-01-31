@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2022-01-29 17:23:28
- * @LastEditTime: 2022-01-30 22:45:00
+ * @LastEditTime: 2022-01-31 21:11:46
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \MiMi\src\components\ProductParam.vue
@@ -57,6 +57,7 @@ export default {
         line-height: 70px;
         border-top: 1px solid $colorH;
         background-color: $colorG;
+        z-index: 10;
         &.is_fixed{
             position: fixed;
             top: 0;

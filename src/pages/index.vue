@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2022-01-20 09:12:41
- * @LastEditTime: 2022-01-26 19:03:23
+ * @LastEditTime: 2022-01-31 22:41:10
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \MiMi\src\pages\index.vue
@@ -229,17 +229,16 @@
                     this.phoneList = [res.list.slice(0,4),res.list.slice(4,8)];
                 })
             },
-            addCart(){
-                this.showModal=true;
-                return;
-                // this.axios.post('/carts',{
-                //     productId:id,
-                //     selected:true
-                // }).then(()=>{
-
-                // }).catch(()=>{
-                //     this.showModal=true;
-                // })
+            addCart(id){
+                this.axios.post('/carts',{
+                    productId:id,
+                    selected:true
+                }).then((res)=>{
+                    this.showModal=true;
+                    this.$store.dispatch('saveCartCount',res.cartTotalQuantity);
+                }).catch(()=>{
+                    this.showModal=true;
+                });
             },
             gotoCart(){
                 this.$router.push('/cart');
