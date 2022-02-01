@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2022-01-20 09:24:30
- * @LastEditTime: 2022-02-01 22:05:29
+ * @LastEditTime: 2022-02-01 22:58:56
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \MiMi\src\pages\cart.vue
@@ -17,7 +17,7 @@
             <div class="container">
                 <div class="cart-box">
                 <ul class="cart-item-head">
-                    <li class="col-1"><span class="checkbox" :class="{'checked':allChecked}"></span>全选</li>
+                    <li class="col-1"><span class="checkbox" :class="{'checked':allChecked}" @click="toggleAll"></span>全选</li>
                     <li class="col-3">商品名称</li>
                     <li class="col-1">单价</li>
                     <li class="col-2">数量</li>
@@ -87,13 +87,21 @@ export default {
     methods:{
         getCartList(){
             this.axios.get('/carts').then((res)=>{
-                this.list = res.cartProductVoList || [];
-                this.allChecked = res.selectedAll;
-                this.cartTotalPrice = res.cartTotalPrice;
-                // 过滤选择和未选择的商品
-                this.checkedNum = this.list.filter(item=>item.productSelected).length;
-                // this.checkedNum = res.cartTotalQuantity;
+                this.renderData(res);
             })
+        },
+        toggleAll(){
+            let url = this.allChecked?'/carts/unSelectAll':'/carts/selectAll';
+            this.axios.put(url).then((res)=>{
+                this.renderData(res);
+            })
+        },
+        renderData(res){
+            this.list = res.cartProductVoList || [];
+            this.allChecked = res.selectedAll;
+            this.cartTotalPrice = res.cartTotalPrice;
+            // 过滤选择和未选择的商品
+            this.checkedNum = this.list.filter(item=>item.productSelected).length;
         }
     }
 
