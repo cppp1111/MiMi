@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2022-01-20 09:16:38
- * @LastEditTime: 2022-01-29 16:48:14
+ * @LastEditTime: 2022-02-01 13:51:18
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \MiMi\src\components\NavHeader.vue
@@ -212,33 +212,6 @@ export default {
                 position: relative;
                 height: 112px;
                 @include flex();
-                .header-logo{
-                    display: inline-block;
-                    width: 55px;
-                    height: 55px;
-                    background-color: #FF6600;
-                    a{
-                        display: inline-block;
-                        width: 110px;
-                        height: 55px;
-                        &:before{
-                            // 因为是图片，需要占位，因为没有内容
-                            content: ' ';
-                            @include bgImg(55px,55px,'/imgs/mi-logo.png',55px);
-                            // transition指的是哪一个属性需要过渡
-                            transition: margin .2s;
-                        }
-                        &:after{
-                            // 因为是图片，需要占位，因为没有内容
-                            content: ' ';
-                            @include bgImg(55px,55px,'/imgs/mi-home.png',55px);
-                        }
-                        &:hover::before{
-                            margin-left: -55px;
-                            transition: margin .2s;
-                        }
-                    }
-                }
                 .header-menu{
                     display: inline-block;
                     width: 643px;
