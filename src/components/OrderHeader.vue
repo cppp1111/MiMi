@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2022-01-20 11:22:48
- * @LastEditTime: 2022-02-01 14:06:29
+ * @LastEditTime: 2022-02-01 17:31:04
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \MiMi\src\components\OrderHeader.vue
@@ -16,18 +16,22 @@
                 <h2>{{title}}<slot name="tip"></slot></h2>
             </div>
             <div class="username">
-                <a href="javascript:;">Jack</a>
+                <a href="javascript:;">{{username}}</a>
             </div>
         </div>
     </div>
 </template>
 <script>
-export default {
-    name:'order-header',
-    props:{
-        title:String
+    import {mapState} from 'vuex'
+    export default {
+        name:'order-header',
+        props:{
+            title:String
+        },
+        computed:{
+            ...mapState(['username'])
+        }
     }
-}
 </script>
 <style lang="scss">
     .order-header{
