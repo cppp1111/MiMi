@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2022-01-20 09:24:30
- * @LastEditTime: 2022-02-02 13:02:50
+ * @LastEditTime: 2022-02-02 13:28:26
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \MiMi\src\pages\cart.vue
@@ -53,7 +53,7 @@
                 </div>
                 <div class="total fr">
                     合计：<span>{{cartTotalPrice}}</span>元
-                    <a href="javascript:;" class="btn">去结算</a>
+                    <a href="javascript:;" class="btn" @click="order">去结算</a>
                 </div>
                 </div>
             </div>
@@ -137,7 +137,17 @@ export default {
             this.cartTotalPrice = res.cartTotalPrice;
             // 过滤选择和未选择的商品
             this.checkedNum = this.list.filter(item=>item.productSelected).length;
-        }
+        },
+        //购物车下单
+        order(){
+            // 等号后面返回的是布尔值，如果都没有选中的话返回的是true
+            let isCheck = this.list.every(item=>!item.productSelected);
+            if (isCheck) {
+                alert('请选择一件商品');
+            }else{
+                this.$router.push('/order/confirm');
+            }
+        } 
     }
 
 }
