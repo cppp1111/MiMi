@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2022-01-19 16:51:31
- * @LastEditTime: 2022-01-31 22:33:53
+ * @LastEditTime: 2022-02-02 14:35:13
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \MiMi\src\main.js
@@ -12,6 +12,8 @@ import VueAxios from 'vue-axios'
 import router from './router'
 import VueLazyload from 'vue-lazyload'
 import VueCookie from 'vue-cookie'
+import { Message } from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
 import store from './store'
 import App from './App.vue'
 
@@ -43,16 +45,19 @@ axios.interceptors.response.use(function(response) {
         }
         return Promise.reject(res);
     } else {
-        alert(res.msg);
+        // alert(res.msg);
+        Message.warning(res.msg);
         return Promise.reject(res);
     }
 });
 
 Vue.use(VueAxios, axios);
 Vue.use(VueCookie);
+Vue.use(Message);
 Vue.use(VueLazyload, {
     loading: '/imgs/loading-svg/loading-bars.svg'
 });
+Vue.prototype.$message = Message;
 Vue.config.productionTip = false
 
 new Vue({

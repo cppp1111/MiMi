@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2022-01-20 09:24:30
- * @LastEditTime: 2022-02-02 13:28:26
+ * @LastEditTime: 2022-02-02 18:52:03
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \MiMi\src\pages\cart.vue
@@ -66,6 +66,7 @@
 import OrderHeader from './../components/OrderHeader.vue'
 import ServiceBar from './../components/ServiceBar.vue'
 import NavFooter from './../components/NavFooter.vue'
+import {Message} from 'element-ui'
 export default {
     name:'cart',
     components:{
@@ -97,13 +98,13 @@ export default {
             selected = item.productSelected;
             if (type == '-') {
                 if (quantity == 1) {
-                    alert('商品至少保留一件');
+                    Message.warning('商品至少保留一件');
                     return;
                 }
                 --quantity;
             }else if(type == '+'){
                 if (quantity > item.productStock) {
-                    alert('商品不能超过库存数量');
+                    Message.warning('商品不能超过库存数量');
                     return;
                 }
                 ++quantity;
@@ -120,6 +121,8 @@ export default {
         // 删除购物车商品
         delProduct(item){
             this.axios.delete(`/carts/${item.productId}`).then((res)=>{
+                // Message.success('删除成功');
+                this.$message.success('删除成功');
                 this.renderData(res);
             })
         },
@@ -143,7 +146,7 @@ export default {
             // 等号后面返回的是布尔值，如果都没有选中的话返回的是true
             let isCheck = this.list.every(item=>!item.productSelected);
             if (isCheck) {
-                alert('请选择一件商品');
+                this.$message.warning('请选择一件商品');
             }else{
                 this.$router.push('/order/confirm');
             }

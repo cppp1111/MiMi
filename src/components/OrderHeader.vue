@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2022-01-20 11:22:48
- * @LastEditTime: 2022-02-01 17:31:04
+ * @LastEditTime: 2022-02-02 13:39:06
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \MiMi\src\components\OrderHeader.vue
@@ -36,6 +36,7 @@
 <style lang="scss">
     .order-header{
         padding: 30px 0;
+        border-bottom: 2px solid #ff6600;
         .header-logo{
             float: left;
         }
@@ -49,11 +50,15 @@
             float: left;
             color: #333333;
             margin-left: 54px;
+            h2{
+                font-size: 28px;
+                color: #333333;
+            }
             span{
                 font-size: 14px;
                 margin-left: 17px;
                 color: #999999;
-                font-weight: bold;
+                font-weight: 200;
             }
         }
         .username{
