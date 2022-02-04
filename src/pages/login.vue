@@ -61,11 +61,17 @@ export default {
             }).then((res)=>{
                 // console.log("res---->",res);
                 // this.res=res;
-                this.$cookie.set('userId',res.id,{expires:'1M'});
+                // 屏蔽掉没有用的接口，设置cookie的Session级别
+                this.$cookie.set('userId',res.id,{expires:'Session'});
                 // to-do 保存用户名
                 this.$store.dispatch('saveUserName',res.username);
                 // this.saveUserName(res.username);
-                this.$router.push('/index');
+                this.$router.push({
+                  name:'index',
+                  params:{
+                    from:'login'
+                  }
+                });
             })
         },
         // ...mapActions(['saveUserName']),

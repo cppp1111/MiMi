@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2022-01-20 09:16:38
- * @LastEditTime: 2022-02-01 13:51:18
+ * @LastEditTime: 2022-02-04 21:32:04
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \MiMi\src\components\NavHeader.vue
@@ -19,6 +19,7 @@
                 <div class="topbar-user">
                     <a href="javascript:;" v-if="username">{{username}}</a>
                     <a href="javascript:;" v-if="!username" @click="login">登陆</a>
+                    <a href="javascript:;" v-if="username" @click="logout">退出</a>
                     <a href="javascript:;" v-if="username">我的订单</a>
                     <a href="javascript:;" class="my-cart" @click="gotoCart"><span class="icon-cart"></span>购物车({{cartCount}})</a>
                 </div>
@@ -151,6 +152,11 @@ export default {
     },
     mounted(){
         this.getProductList();
+        let params = this.$route.params;
+        if (params && params.from == 'login') {
+            this.getCartCount();            
+        }
+
     },
     methods:{
         login(){
@@ -169,10 +175,24 @@ export default {
                 // }
             })
         },
+        getCartCount(){
+            this.axios.get('/carts/products/sum').then((res=0)=>{
+                //  to-do 保存到vuex里面
+                this.$store.dispatch('saveCartCount',res);
+            })
+        },
+        logout(){
+            this.axios.post('/user/logout').then(()=>{
+                this.$message.success('退出成功');
+                this.$cookie.set('userId','',{expires:'-1'});
+                this.$store.dispatch('saveUserName','');
+                this.$store.dispatch('saveCartCount','0');
+            })
+        },
         gotoCart(){
             // 跳转路由   ：this.$router.push()
             // 取参数： $router.params
-            this.$router.push('/cart');
+            this.$router.post('/cart');
         }
     }
 }
