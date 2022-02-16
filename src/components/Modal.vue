@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2022-01-23 16:24:14
- * @LastEditTime: 2022-01-26 17:17:57
+ * @LastEditTime: 2022-02-16 13:25:57
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \MiMi\src\components\Modal.vue
@@ -35,7 +35,7 @@
                     </a>
                     <div class="btn-group" v-if="btnType==3">
                         <a href="javascript:;" class="btn" @click="$emit('submit')">{{sureText}}</a>
-                        <a href="javascript:;" class="btn" @click="$emit('cancel')">{{cancleText}}</a>
+                        <a href="javascript:;" class="btn btn-default" @click="$emit('cancel')">{{cancleText}}</a>
                     </div>
                 </div>
             </div>
