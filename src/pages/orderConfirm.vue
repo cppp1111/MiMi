@@ -42,7 +42,7 @@
                   </a>
                 </div>
               </div>
-              <div class="addr-add">
+              <div class="addr-add" @click="openAddressModal">
                 <div class="icon-add"></div>
                 <div>添加新地址</div>
               </div>
@@ -109,21 +109,21 @@
       <template v-slot:body>
         <div class="edit-wrap">
           <div class="item">
-            <input type="text" class="input" placeholder="姓名">
-            <input type="text" class="input" placeholder="手机号">
+            <input type="text" class="input" placeholder="姓名" v-model="checkedItem.receiverName">
+            <input type="text" class="input" placeholder="手机号" v-model="checkedItem.receiverMobile">
           </div>
           <div class="item">
-            <select name="provice" id="">
+            <select name="provice" v-model="checkedItem.receiverProvince">
               <option value="北京">北京</option>
               <option value="天津">天津</option>
               <option value="河北">河北</option>
             </select>
-            <select name="city" id="">
+            <select name="city" v-model="checkedItem.receiverCity">
               <option value="北京">北京</option>
               <option value="天津">天津</option>
               <option value="石家庄">石家庄</option>
             </select>
-            <select name="district" id="">
+            <select name="district" v-model="checkedItem.receiverDistrict">
               <option value="昌平区">昌平区</option>
               <option value="海淀区">海淀区</option>
               <option value="东城区">东城区</option>
@@ -133,10 +133,10 @@
             </select>
           </div>
           <div class="item">
-            <textarea name="street"></textarea>
+            <textarea name="street" v-model="checkedItem.receiverAddress"></textarea>
           </div>
           <div class="item">
-            <input type="text" class="input" placeholder="邮编">
+            <input type="text" class="input" placeholder="邮编" v-model="checkedItem.receiverZip">
           </div>
         </div>
       </template>
@@ -167,7 +167,7 @@ export default{
           checkedItem:{},//选中的商品对象
           userAction:'',//用户行为   0：新增， 1：编辑， 2：删除 
           showDelModal:false,//是否显示删除弹框
-          showEditModal:true,//是否显示新增或者编辑弹框
+          showEditModal:false,//是否显示新增或者编辑弹框
       }
   },
   components:{
@@ -183,6 +183,12 @@ export default{
               this.list = res.list;
           })
       },
+      // 打开新增地址弹框
+      openAddressModal(){
+        this.userAction = 0;
+        this.checkedItem ={};
+        this.showEditModal = true;
+      },
       delAddress(item){
         this.checkedItem = item;
         this.userAction = 2;
@@ -191,7 +197,7 @@ export default{
       // 地址编辑  新增  删除功能
       submitAddress(){
         let {checkedItem,userAction} = this;
-        let method,url;
+        let method,url,params={};
         if (userAction == 0) {
           method = 'post',url = '/shippings';
         } else if (userAction == 1) {
@@ -199,7 +205,37 @@ export default{
         } else {
           method = 'delete',url  = `/shippings/${checkedItem.id}`;
         } 
-        this.axios[method](url).then(()=>{
+        if (userAction == 0 || userAction == 1) {
+          let {receiverName,receiverMobile,receiverProvince,receiverCity,receiverDistrict,receiverAddress,receiverZip} = checkedItem;
+          let errMsg='';
+          if (!receiverName) {
+            errMsg = '请输入收货人名称';
+          }else if (!receiverMobile || !/\d{11}/.test(receiverMobile)) {
+            errMsg = '请输入正确格式的手机号';
+          }else if (!receiverProvince) {
+            errMsg = '请选择省份';
+          }else if (!receiverCity) {
+            errMsg = '请选择对应的城市';
+          }else if (!receiverAddress || !receiverDistrict) {
+            errMsg = '请输入收货地址';
+          }else if (!/\d{6}/.test(receiverZip)) {
+            errMsg = '请输入六位邮编'
+          }
+          if (errMsg) {
+            this.$message.error(errMsg);
+            return;
+          }
+          params = {
+            receiverName,
+            receiverMobile,
+            receiverProvince,
+            receiverCity,
+            receiverDistrict,
+            receiverAddress,
+            receiverZip
+          }
+        }
+        this.axios[method](url,params).then(()=>{
           this.closeModel();
           this.getAddressList();
           this.$message.success('操作成功');
@@ -209,6 +245,7 @@ export default{
         this.checkedItem = {};
         this.userAction = '';
         this.showDelModal = false;
+        this.showEditModal  = false;
       },
       getCartList(){
         this.axios.get('/carts').then((res)=>{
