@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2022-01-20 09:25:55
- * @LastEditTime: 2022-02-22 13:31:02
+ * @LastEditTime: 2022-02-22 13:45:02
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \MiMi\src\pages\aliPay.vue
@@ -19,6 +19,7 @@ export default {
     data(){
         return{
             orderId:this.$route.query.orderId,
+            // 支付宝支付：content是html源码，渲染到页面上后自动跳转到支付页面
             content:'',
             loading:true
         }
