@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2022-01-19 16:51:31
- * @LastEditTime: 2022-02-02 14:35:13
+ * @LastEditTime: 2022-02-23 14:40:34
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \MiMi\src\main.js
@@ -49,6 +49,10 @@ axios.interceptors.response.use(function(response) {
         Message.warning(res.msg);
         return Promise.reject(res);
     }
+}, (error) => {
+    let res = error.response;
+    Message.error(res.data.message);
+    return Promise.reject(error);
 });
 
 Vue.use(VueAxios, axios);
