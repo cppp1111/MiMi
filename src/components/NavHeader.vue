@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2022-01-20 09:16:38
- * @LastEditTime: 2022-02-16 13:21:30
+ * @LastEditTime: 2022-02-24 14:53:54
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \MiMi\src\components\NavHeader.vue
@@ -20,7 +20,7 @@
                     <a href="javascript:;" v-if="username">{{username}}</a>
                     <a href="javascript:;" v-if="!username" @click="login">登陆</a>
                     <a href="javascript:;" v-if="username" @click="logout">退出</a>
-                    <a href="javascript:;" v-if="username">我的订单</a>
+                    <a href="/#/order/list" v-if="username">我的订单</a>
                     <a href="javascript:;" class="my-cart" @click="gotoCart"><span class="icon-cart"></span>购物车({{cartCount}})</a>
                 </div>
             </div>
